@@ -8,6 +8,7 @@ Tested on Ubuntu 21.04
 3) add config to '/etc/dhcp/dhcpd.conf'
 
 ::
+
         subnet 172.31.254.0 netmask 255.255.255.0 {
                 range 172.31.254.1 172.31.254.10;
                 option routers 172.31.254.100;
