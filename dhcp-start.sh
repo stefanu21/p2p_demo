@@ -1,10 +1,9 @@
 #!/bin/bash
 
-interface_id="miralan"
-leases_file="/tmp/dhcpd-test.lease"
-pid_file="/var/run/dhcpd-test.pid"
-#kill $(cat $pid_file)
-#kill -9 $(cat $pid_file)
-#touch $leases_filei
-sleep 1
-dhcpd -pf $pid_file $1
+CONFIG_FILE=/etc/dhcp/dhcpd.conf
+[ -e /var/lib/dhcp/dhcpd.leases ] || touch /var/lib/dhcp/dhcpd.leases
+chown root:dhcpd /var/lib/dhcp /var/lib/dhcp/dhcpd.leases;
+chmod 775 /var/lib/dhcp ; chmod 664 /var/lib/dhcp/dhcpd.leases;
+
+exec dhcpd -user dhcpd -group dhcpd -f -4 -pf /run/dhcp-server/dhcpd.pid -cf $CONFIG_FILE $1
+

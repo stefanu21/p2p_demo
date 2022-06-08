@@ -2,14 +2,18 @@ VERSION = 0.0
 CC = gcc
 CFLAGS = -Wall -g3 -I./common/ -I./wpa_code_gen/ -DVERSION=\"$(VERSION)\" $(shell pkg-config --cflags glib-2.0 gio-2.0 gio-unix-2.0)
 LDFLAGS = $(shell pkg-config --libs glib-2.0 gio-2.0 gio-unix-2.0)
-BIN = wpa_daemon
-VPATH = ./wpa_code_gen
-OBJ = main.o supplicant.o wpa.o wpa_interface.o wpa_peer.o wpa_group.o
+BIN = p2pd
+OBJ = p2pd.o ap_mode.o interface.o common.o group.o wpa.o
+OBJ += wpa_code_gen/wpa.o wpa_code_gen/wpa_interface.o wpa_code_gen/wpa_group.o wpa_code_gen/wpa_peer.o wpa_code_gen/wpa_pers_group.o
+
+SRCS += $(wildcard wpa_code_gen/*.c) 
+HDRS += $(wildcard wpa_code_gen/*.h))
+
 
 $(BIN): $(OBJ)
 	$(CC) $(CFLAGS) -o $(BIN) $(OBJ) $(LDFLAGS)
 
-%.o:%.c
+$(OBJDRI)/%.o:	%.c
 	$(CC) $(CFLAGS) -c $<
 
 
@@ -20,4 +24,5 @@ all:
 	
 clean:
 	rm -rf $(BIN) $(OBJ)
+
 

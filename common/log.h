@@ -17,7 +17,7 @@
 
 #define ARRAYSIZE(x) (sizeof(x)/sizeof(x[0]))
 
-//#define USE_SYSLOG
+#undef USE_SYSLOG
 #ifdef USE_SYSLOG
 #include <syslog.h>
 
